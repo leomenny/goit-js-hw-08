@@ -1,6 +1,5 @@
 import throttle from 'lodash.throttle';
 
-
 const feedbackForm = document.querySelector('.feedback-form');
 
 const emailInput = feedbackForm.querySelector('input[name="email"]');
@@ -32,14 +31,16 @@ window.addEventListener('DOMContentLoaded', populateFormFields);
 feedbackForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  const formState = localStorage.getItem('feedback-form-state');
+  const email = emailInput.value;
+  const message = messageInput.value;
 
-  if (formState) {
-    const { email, message } = JSON.parse(formState);
-    console.log('Form submitted with values:', { email, message });
-  } else {
-    console.log('Form submitted with empty values.');
+  if (!email || !message) {
+    alert('Всі поля повинні бути заповнені!');
+    return;
   }
+
+  console.log({ email, message });
+  alert('Дані відправлені');
 
   localStorage.removeItem('feedback-form-state');
   emailInput.value = '';

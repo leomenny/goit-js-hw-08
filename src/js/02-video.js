@@ -5,7 +5,7 @@ import throttle from 'lodash.throttle';
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
 const localKey = "videoplayer-current-time";
-const timeLocalStorage = localStorage.getItem(localKey) || 0;
+// const timeLocalStorage = localStorage.getItem(localKey) || 0;
 
 const onPlay = function(data) {
     const currentTime = data.seconds;
@@ -14,7 +14,7 @@ const onPlay = function(data) {
 
 player.on('timeupdate', throttle(onPlay, 1000));
 
-player.setCurrentTime(timeLocalStorage).catch(function(error) {
+player.setCurrentTime(localStorage.getItem(localKey) || 0).catch(function(error) {
     switch (error.name) {
         case 'RangeError': break;
         default: break;
